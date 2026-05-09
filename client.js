@@ -20,6 +20,7 @@ const jobCompleteCheck = document.querySelector("#jobCompleteCheck");
 const leetcodeCompleteCheck = document.querySelector("#leetcodeCompleteCheck");
 const historyList = document.querySelector("#historyList");
 const dailyForm = document.querySelector("#dailyForm");
+const favicon = document.querySelector("#favicon");
 
 const numberFields = Object.keys(fields);
 let state = { days: {} };
@@ -106,6 +107,48 @@ function renderCheck(element, completedToday, quota) {
     element.checked = completedToday >= quota;
 }
 
+function updateFavicon(day) {
+    if (!favicon) {
+        return;
+    }
+
+    const remainingJobs = Math.max(0, day.jobQuota - day.jobCompleted);
+    const remainingLeetcode = Math.max(0, day.leetcodeQuota - day.leetcodeCompleted);
+    const remainingTasks = remainingJobs + remainingLeetcode;
+    const canvas = document.createElement("canvas");
+    const size = 64;
+    const context = canvas.getContext("2d");
+
+    canvas.width = size;
+    canvas.height = size;
+    context.fillStyle = remainingTasks === 0 ? "#16a34a" : "#0f172a";
+    context.beginPath();
+    context.roundRect(0, 0, size, size, 14);
+    context.fill();
+
+    context.fillStyle = "#f8fafc";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+
+    if (remainingTasks === 0) {
+        context.strokeStyle = "#f8fafc";
+        context.lineWidth = 7;
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        context.beginPath();
+        context.moveTo(18, 34);
+        context.lineTo(28, 43);
+        context.lineTo(47, 21);
+        context.stroke();
+    } else {
+        const label = remainingTasks > 99 ? "99+" : String(remainingTasks);
+        context.font = `${label.length > 2 ? 24 : 32}px Arial, sans-serif`;
+        context.fillText(label, size / 2, size / 2 + 2);
+    }
+
+    favicon.href = canvas.toDataURL("image/png");
+}
+
 function renderHistory() {
     const today = new Date();
     historyList.innerHTML = "";
@@ -159,6 +202,7 @@ function render() {
     renderStatus(leetcodeStatus, today.leetcodeCompleted, today.leetcodeQuota);
     renderCheck(jobCompleteCheck, today.jobCompleted, today.jobQuota);
     renderCheck(leetcodeCompleteCheck, today.leetcodeCompleted, today.leetcodeQuota);
+    updateFavicon(today);
     renderHistory();
 }
 
