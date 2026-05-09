@@ -1,0 +1,12 @@
+{
+    "name": "daily-task-tracker",
+    "version": "1.0.0",
+    "description": "A daily tracker for job applications and LeetCode practice.",
+    "main": "server.js",
+    "scripts": {
+        "start": "node --experimental-sqlite server.js"
+    },
+    "dependencies": {
+        "express": "^4.21.2"
+    }
+}

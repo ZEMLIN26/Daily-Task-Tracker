@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Zeming Lin">
+        <title>Daily Task Tracker</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <main class="app-shell">
+            <section class="today-panel" aria-labelledby="today-heading">
+                <div>
+                    <p class="eyebrow">Daily Task Tracker</p>
+                    <h1 id="today-heading">Keep the streak honest.</h1>
+                    <p class="date-line" id="todayDate">Loading today...</p>
+                </div>
+
+                <div class="summary-strip" aria-label="Today summary">
+                    <div class="summary-item">
+                        <span id="jobStatus" class="status-pill">0 / 0</span>
+                        <label class="summary-check">
+                            <input id="jobCompleteCheck" type="checkbox" disabled>
+                            Job applications
+                        </label>
+                    </div>
+                    <div class="summary-item">
+                        <span id="leetcodeStatus" class="status-pill">0 / 0</span>
+                        <label class="summary-check">
+                            <input id="leetcodeCompleteCheck" type="checkbox" disabled>
+                            LeetCode problems
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tracker-grid" aria-label="Daily tracker controls">
+                <article class="metric-card">
+                    <div>
+                        <p class="metric-label">Job application adjustment</p>
+                        <strong id="jobCompletedDisplay">0</strong>
+                    </div>
+                    <div class="stepper">
+                        <button type="button" data-action="decrease" data-field="jobCompleted" aria-label="Decrease job application adjustment">-</button>
+                        <input id="jobCompleted" type="number" min="-1" max="1" inputmode="numeric" aria-label="Job application adjustment" value="0">
+                        <button type="button" data-action="increase" data-field="jobCompleted" aria-label="Increase job application adjustment">+</button>
+                    </div>
+                </article>
+
+                <article class="metric-card">
+                    <div>
+                        <p class="metric-label">Historical total of job applications</p>
+                        <strong id="jobTotalDisplay">0</strong>
+                    </div>
+                    <p class="calculated-note">Calculated automatically</p>
+                </article>
+
+                <article class="metric-card">
+                    <div>
+                        <p class="metric-label">LeetCode problem adjustment</p>
+                        <strong id="leetcodeCompletedDisplay">0</strong>
+                    </div>
+                    <div class="stepper">
+                        <button type="button" data-action="decrease" data-field="leetcodeCompleted" aria-label="Decrease LeetCode adjustment">-</button>
+                        <input id="leetcodeCompleted" type="number" min="-1" max="1" inputmode="numeric" aria-label="LeetCode adjustment" value="0">
+                        <button type="button" data-action="increase" data-field="leetcodeCompleted" aria-label="Increase LeetCode adjustment">+</button>
+                    </div>
+                </article>
+
+                <article class="metric-card">
+                    <div>
+                        <p class="metric-label">Historical total of LeetCode problems</p>
+                        <strong id="leetcodeTotalDisplay">0</strong>
+                    </div>
+                    <p class="calculated-note">Calculated automatically</p>
+                </article>
+            </section>
+
+            <section class="submit-panel" aria-labelledby="submit-heading">
+                <div>
+                    <p class="eyebrow">Today</p>
+                    <h2 id="submit-heading">Submit completed work</h2>
+                </div>
+                <form id="dailyForm" class="daily-form">
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+
+            <section class="history-panel" aria-labelledby="history-heading">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Last 7 Days</p>
+                        <h2 id="history-heading">Completion status</h2>
+                    </div>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </section>
+        </main>
+
+        <script src="client.js"></script>
+    </body>
+</html>

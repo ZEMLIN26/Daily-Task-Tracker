@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS daily_progress (
+    date TEXT UNIQUE NOT NULL,
+    job_quota INTEGER NOT NULL DEFAULT 10,
+    leetcode_quota INTEGER NOT NULL DEFAULT 5,
+    job_completed INTEGER NOT NULL DEFAULT 0,
+    leetcode_completed INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
